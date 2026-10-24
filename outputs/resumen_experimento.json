@@ -1,0 +1,77 @@
+{
+  "project": "Checkpoint 1 | AG News cátedra | Deep Learning PyTorch",
+  "data": "AG News submuestra de la cátedra",
+  "train_original": 8000,
+  "train_internal": 6400,
+  "validation": 1600,
+  "test_reserved": 2000,
+  "labels": [
+    "Business",
+    "Sci_Tech",
+    "Sports",
+    "World"
+  ],
+  "test_used_during_training": false,
+  "device": "cpu",
+  "torch_version": "2.10.0+cpu",
+  "numpy_version": "2.3.5",
+  "pandas_version": "2.2.3",
+  "sklearn_version": "1.8.0",
+  "parameters": 768644,
+  "vectorizer_fitted_on": "train interno exclusivamente",
+  "features": 6000,
+  "baseline_majority_accuracy": 0.25,
+  "config": {
+    "seed": 42,
+    "val_fraction": 0.2,
+    "max_features": 6000,
+    "epochs": 20,
+    "patience": 5,
+    "batch_size": 128,
+    "hidden_size": 128,
+    "dropout": 0.35,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "train_file": "data/ag_news_train.csv",
+    "test_file": "data/ag_news_test.csv",
+    "output_dir": "outputs",
+    "model_dir": "models"
+  },
+  "epochs_run": 13,
+  "best_epoch_by_val_loss": 8,
+  "best_val_loss": 0.34414756774902344,
+  "first_train_loss": 1.0742555165290832,
+  "last_train_loss": 0.05190169885754585,
+  "first_val_loss": 1.1015947723388673,
+  "last_val_loss": 0.3565717768669128,
+  "test_loss": 0.35708561110496523,
+  "test_accuracy": 0.882,
+  "test_f1_macro": 0.8821233999772418,
+  "test_f1_weighted": 0.8821233999772417,
+  "test_confusion_matrix": [
+    [
+      421,
+      49,
+      4,
+      26
+    ],
+    [
+      49,
+      429,
+      8,
+      14
+    ],
+    [
+      9,
+      8,
+      475,
+      8
+    ],
+    [
+      28,
+      19,
+      14,
+      439
+    ]
+  ]
+}

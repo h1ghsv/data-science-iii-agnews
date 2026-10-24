@@ -1,0 +1,18 @@
+PyTorch 2.10.0+cpu | device=cpu | parámetros=768,644
+AG News cátedra: train=6400, val=1600, test reservado=2000
+TF-IDF: 6000 atributos (fit exclusivamente en train)
+Epoch 01 | train loss 1.0743 | val loss 1.1016 | val acc 0.8506 | val F1macro 0.8481
+Epoch 02 | train loss 0.5570 | val loss 0.6324 | val acc 0.8744 | val F1macro 0.8732
+Epoch 03 | train loss 0.3398 | val loss 0.4484 | val acc 0.8825 | val F1macro 0.8819
+Epoch 04 | train loss 0.2499 | val loss 0.3902 | val acc 0.8800 | val F1macro 0.8792
+Epoch 05 | train loss 0.1966 | val loss 0.3634 | val acc 0.8856 | val F1macro 0.8850
+Epoch 06 | train loss 0.1588 | val loss 0.3504 | val acc 0.8862 | val F1macro 0.8857
+Epoch 07 | train loss 0.1304 | val loss 0.3448 | val acc 0.8850 | val F1macro 0.8845
+Epoch 08 | train loss 0.1083 | val loss 0.3441 | val acc 0.8850 | val F1macro 0.8845
+Epoch 09 | train loss 0.0918 | val loss 0.3472 | val acc 0.8831 | val F1macro 0.8824
+Epoch 10 | train loss 0.0784 | val loss 0.3462 | val acc 0.8844 | val F1macro 0.8839
+Epoch 11 | train loss 0.0681 | val loss 0.3517 | val acc 0.8812 | val F1macro 0.8807
+Epoch 12 | train loss 0.0590 | val loss 0.3524 | val acc 0.8812 | val F1macro 0.8807
+Epoch 13 | train loss 0.0519 | val loss 0.3566 | val acc 0.8819 | val F1macro 0.8813
+Early stopping: sin mejora 5 épocas.
+MEJOR ÉPOCA: 8 | TEST accuracy=0.8820 | F1macro=0.8821
