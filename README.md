@@ -85,6 +85,21 @@ La pérdida de validación descendió hasta la época 8. Después aumentó liger
 
 Los resultados detallados se encuentran en `outputs/historial_epocas.csv`, `outputs/reporte_clasificacion_test.csv` y `outputs/resumen_experimento.json`.
 
+### Diagnóstico de errores
+
+Se incorpora un análisis posterior a la evaluación final: aciertos por categoría, principales confusiones, rendimiento por longitud del documento y errores con alta confianza. Los resultados están documentados en [`docs/analisis_errores.md`](docs/analisis_errores.md).
+
+![Análisis de errores](outputs/analisis_errores.png)
+
+Para regenerar el análisis a partir de las predicciones finales:
+
+```bash
+python -m src.analisis_errores
+```
+
+Este diagnóstico describe los resultados del test; no se utiliza para modificar el modelo ni para seleccionar hiperparámetros.
+
+
 ### Alcance
 
 El modelo clasifica la temática de noticias del corpus entregado. Las métricas no demuestran rendimiento equivalente en otras fuentes, períodos o idiomas. El vectorizador no utiliza textos de validación ni de test para ajustar vocabulario o frecuencias. Las siguientes etapas del curso podrán comparar modelos sobre el mismo corpus manteniendo esa separación.

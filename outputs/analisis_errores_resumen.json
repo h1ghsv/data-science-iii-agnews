@@ -1,0 +1,18 @@
+{
+  "documentos": 2000,
+  "errores": 236,
+  "accuracy": 0.882,
+  "confusion_principal": {
+    "real": "Business",
+    "predicha": "Sci_Tech",
+    "casos": 49
+  },
+  "categoria_mas_dificil": {
+    "categoria": "Business",
+    "accuracy": 0.842
+  },
+  "categoria_mas_facil": {
+    "categoria": "Sports",
+    "accuracy": 0.95
+  }
+}

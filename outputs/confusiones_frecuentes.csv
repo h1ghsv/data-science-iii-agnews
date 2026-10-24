@@ -1,0 +1,13 @@
+label_real,label_predicha,casos
+Business,Sci_Tech,49
+Sci_Tech,Business,49
+World,Business,28
+Business,World,26
+World,Sci_Tech,19
+Sci_Tech,World,14
+World,Sports,14
+Sports,Business,9
+Sports,Sci_Tech,8
+Sci_Tech,Sports,8
+Sports,World,8
+Business,Sports,4

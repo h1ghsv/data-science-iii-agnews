@@ -1,0 +1,5 @@
+label_real,n,aciertos,accuracy
+Business,500,421,0.842
+Sci_Tech,500,429,0.858
+Sports,500,475,0.95
+World,500,439,0.878
