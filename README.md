@@ -105,3 +105,27 @@ Este diagnóstico describe los resultados del test; no se utiliza para modificar
 El modelo clasifica la temática de noticias del corpus entregado. Las métricas no demuestran rendimiento equivalente en otras fuentes, períodos o idiomas. El vectorizador no utiliza textos de validación ni de test para ajustar vocabulario o frecuencias. Las siguientes etapas del curso podrán comparar modelos sobre el mismo corpus manteniendo esa separación.
 
 **Referencia:** Zhang, Zhao y LeCun (2015), *Character-level Convolutional Networks for Text Classification*; material AG News de la cátedra.
+
+
+## Checkpoint 2 | Preprocesamiento y análisis exploratorio
+
+En esta etapa se desarrolló un pipeline de preprocesamiento y diagnóstico del corpus AG News, utilizando las 8.000 noticias del conjunto de entrenamiento.
+
+El procesamiento incluye limpieza mediante expresiones regulares, normalización textual, tokenización y lematización con SpaCy (`en_core_web_sm`).
+
+El análisis exploratorio comprende:
+
+- Distribución de documentos entre las cuatro categorías.
+- Longitud de los textos y percentil 95 para orientar la elección de `max_len`.
+- Frecuencias léxicas, stopwords y Ley de Zipf.
+- Identificación de los 20 bigramas y 20 trigramas más frecuentes.
+- Comparación de vocabulario y características entre categorías.
+- Evaluación del ruido textual y las necesidades de limpieza.
+
+Los resultados permiten fundamentar las decisiones de representación y modelado que se aplicarán en los siguientes módulos.
+
+El análisis exploratorio se realizó exclusivamente sobre las 8.000 noticias de entrenamiento, sin utilizar el conjunto de prueba para calcular estadísticas ni ajustar el preprocesamiento.
+
+**Archivos del checkpoint:** [Ver análisis exploratorio](checkpoint_2_eda/)
+
+**Informe técnico:** [Consultar PDF](checkpoint_2_eda/reportes/EDA_NLP.pdf)
