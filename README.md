@@ -1,19 +1,20 @@
-# Data Science III | Checkpoint 1
+# Data Science III | AG News
 
-## Clasificación de noticias AG News con PyTorch
+## Clasificación de noticias mediante NLP y Deep Learning
 
 Pipeline reproducible de entrenamiento, validación y evaluación de un clasificador multiclase para noticias en inglés. El trabajo utiliza la muestra de **AG News provista por la cátedra**, con cuatro categorías: `World`, `Sports`, `Business` y `Sci_Tech`.
 
 ### Organización
 
 ```text
-├── data/ag_news/           # CSV oficiales de train y test
-├── src/                    # Entrenamiento e inferencia
+├── data/                   # CSV de entrenamiento y prueba, cargador de la cátedra
+├── src/                    # Entrenamiento, normalización compartida e inferencia
 ├── notebooks/              # Ejecución en Jupyter
 ├── tests/                  # Pruebas automatizadas
 ├── outputs/                # Métricas y visualizaciones
 ├── models/                 # Modelos generados localmente
 ├── docs/                   # Metodología y entrega
+├── checkpoint_2_eda/       # Preprocesamiento, informe PDF y análisis exploratorio
 ├── requirements.txt
 └── README.md
 ```
@@ -22,7 +23,7 @@ Pipeline reproducible de entrenamiento, validación y evaluación de un clasific
 
 El conjunto de la cátedra contiene 8.000 noticias de entrenamiento y 2.000 de prueba, con columnas `text` y `label`. A partir de las 8.000 noticias se obtiene una partición estratificada de 6.400 documentos para entrenamiento y 1.600 para validación (`random_state=42`). Las 2.000 noticias de test quedan reservadas para la evaluación final.
 
-Los archivos `data/ag_news/ag_news_train.csv` y `data/ag_news/ag_news_test.csv` se incluyen en esta entrega. Proceden del material académico de la cátedra; confirmar con el docente las condiciones de redistribución antes de publicar el repositorio como público. El código utiliza directamente esas rutas. El archivo `data/cargar_dataset_catedra.py` puede cargar ambos CSV desde la carpeta `ag_news/`.
+Los archivos `data/ag_news_train.csv` y `data/ag_news_test.csv` se incluyen en esta entrega. Proceden del material académico de la cátedra; confirmar con el docente las condiciones de redistribución antes de publicar el repositorio como público. El código detecta tanto `data/` como `data/ag_news/`. El cargador `data/cargar_dataset_catedra.py` admite ambas ubicaciones.
 
 ### Modelo y procedimiento
 
@@ -56,9 +57,9 @@ python -m unittest discover -s tests -v
 python -m src.train
 ```
 
-Como alternativa, abrir `notebooks/01_Entrenamiento_Validacion_AGNews.ipynb` y ejecutar todas sus celdas, con los CSV ya ubicados en `data/`.
+Como alternativa, abrir `notebooks/Entrenamiento_Validacion_AGNews.ipynb` y ejecutar todas sus celdas, con los CSV ya ubicados en `data/`.
 
-Después del entrenamiento, para clasificar una noticia nueva:
+Después del entrenamiento, para clasificar una noticia nueva (el vectorizador y los pesos se generan localmente):
 
 ```bash
 python -m src.predict "A new smartphone was unveiled at the technology conference"
@@ -129,3 +130,10 @@ El análisis exploratorio se realizó exclusivamente sobre las 8.000 noticias de
 **Archivos del checkpoint:** [Ver análisis exploratorio](checkpoint_2_eda/)
 
 **Informe técnico:** [Consultar PDF](checkpoint_2_eda/reportes/EDA_NLP.pdf)
+
+
+### Reproducibilidad
+
+El preprocesamiento compartido de entrenamiento e inferencia está en `src/text_utils.py`, de modo que `joblib` pueda recargar el vectorizador TF-IDF desde otro proceso. Los modelos generados no se versionan en GitHub: ejecutar `python -m src.train` antes de usar `python -m src.predict`.
+
+La semilla 42, los parámetros y las versiones utilizadas figuran en `outputs/resumen_experimento.json`. Pueden producirse pequeñas variaciones numéricas entre distintas versiones de bibliotecas o hardware. Para generar nuevamente el informe del segundo checkpoint, instalar también las dependencias en `checkpoint_2_eda/requirements_eda.txt` y el modelo inglés de SpaCy `en_core_web_sm`.

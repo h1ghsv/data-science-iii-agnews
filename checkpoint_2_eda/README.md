@@ -14,12 +14,9 @@ python -m spacy download en_core_web_sm
 python checkpoint_2_eda/generar_reporte.py
 ```
 
-Los datos deben estar ubicados en:
+El generador detecta los archivos `data/ag_news_train.csv` y `data/ag_news_test.csv` de este repositorio. También admite la organización alternativa `data/ag_news/`.
 
-- `data/ag_news/ag_news_train.csv`
-- `data/ag_news/ag_news_test.csv`
-
-Los resultados se escriben en `checkpoint_2_eda/outputs/` y el documento final en `checkpoint_2_eda/reportes/EDA_NLP_ArevaloJuanPablo.pdf`.
+Los resultados se escriben en `checkpoint_2_eda/outputs/` y el documento generado en `checkpoint_2_eda/reportes/EDA_NLP_ArevaloJuanPablo.pdf`. El informe ya entregado se conserva en esta carpeta con el nombre `EDA_NLP.pdf`.
 
 En Linux o Google Colab, si falta DejaVu Sans, se puede instalar `fonts-dejavu-core`. La fuente es una dependencia de presentación, no del procesamiento del corpus.
 

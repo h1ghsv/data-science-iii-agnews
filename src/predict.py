@@ -7,7 +7,10 @@ from .train import NewsMLP, ROOT, select_device
 
 
 def predict_texts(texts):
-    vec = joblib.load(ROOT / 'models/tfidf_train_only.joblib')
+    vectorizer_path = ROOT / 'models/tfidf_train_only.joblib'
+    if not vectorizer_path.exists():
+        raise RuntimeError('Ejecutá primero python -m src.train para generar el vectorizador y el modelo.')
+    vec = joblib.load(vectorizer_path)
     try:
         checkpoint = torch.load(ROOT / 'models/mejor_modelo.pt', map_location='cpu', weights_only=True)
     except FileNotFoundError as e:

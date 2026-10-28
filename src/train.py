@@ -3,11 +3,9 @@ from __future__ import annotations
 
 import argparse
 import copy
-import html
 import json
 import os
 import random
-import re
 import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -26,6 +24,7 @@ from sklearn.metrics import (accuracy_score, classification_report,
 from sklearn.model_selection import train_test_split
 from torch import nn
 from torch.utils.data import DataLoader, TensorDataset
+from .text_utils import preprocess_text
 
 ROOT = Path(__file__).resolve().parents[1]
 LABELS = ('Business', 'Sci_Tech', 'Sports', 'World')
@@ -67,16 +66,6 @@ def select_device() -> torch.device:
     if hasattr(torch.backends, 'mps') and torch.backends.mps.is_available():
         return torch.device('mps')
     return torch.device('cpu')
-
-
-def preprocess_text(text: str) -> str:
-    """Normaliza el texto conservando negaciones y números."""
-    text = html.unescape(str(text))
-    text = re.sub(r'<[^>]*>', ' ', text)
-    text = re.sub(r'(?:https?://|www\.)\S+', ' ', text, flags=re.I)
-    text = text.lower()
-    text = re.sub(r"[^a-z0-9'\s]", ' ', text)
-    return re.sub(r'\s+', ' ', text).strip()
 
 
 def locate_csv(relative_path: str) -> Path:

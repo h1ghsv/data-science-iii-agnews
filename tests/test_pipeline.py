@@ -1,10 +1,16 @@
 import unittest
 import torch
+from src.text_utils import preprocess_text as preprocess_compartido
 from src.train import Config, LABELS, NewsMLP, preprocess_text, load_official_data
 
 class TestCheckpoint1(unittest.TestCase):
     def test_clean_html_and_negation(self):
         self.assertEqual(preprocess_text('Not <b>good</b> &amp; bad!'), 'not good bad')
+    def test_preprocessor_reutilizable_entre_procesos(self):
+        # El vectorizador guardado no debe depender del __main__ de entrenamiento.
+        self.assertIs(preprocess_text, preprocess_compartido)
+        self.assertEqual(preprocess_text.__module__, 'src.text_utils')
+
     def test_model_shapes_and_backward(self):
         model = NewsMLP(10, 8, 4, .2)
         logits = model(torch.randn(3, 10))
