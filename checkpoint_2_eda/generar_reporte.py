@@ -32,7 +32,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
 ROOT=Path(__file__).resolve().parent.parent
-DATA=ROOT/'data'/'ag_news'
+DATA=ROOT/'data'/'ag_news' if (ROOT/'data'/'ag_news'/'ag_news_train.csv').exists() else ROOT/'data'
 OUT=ROOT/'checkpoint_2_eda'/'outputs'
 REPORTES=ROOT/'checkpoint_2_eda'/'reportes'
 OUT.mkdir(parents=True, exist_ok=True)

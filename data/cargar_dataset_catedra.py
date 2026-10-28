@@ -16,8 +16,11 @@ BASE = Path(__file__).parent   # carpeta donde está este script
 
 def cargar(dataset: str = DATASET):
     """Devuelve (train_df, test_df) con columnas: text, label."""
-    tr = pd.read_csv(BASE / dataset / f"{dataset}_train.csv")
-    te = pd.read_csv(BASE / dataset / f"{dataset}_test.csv")
+    carpeta = BASE / dataset
+    if not (carpeta / f"{dataset}_train.csv").exists():
+        carpeta = BASE
+    tr = pd.read_csv(carpeta / f"{dataset}_train.csv")
+    te = pd.read_csv(carpeta / f"{dataset}_test.csv")
     return tr, te
 
 

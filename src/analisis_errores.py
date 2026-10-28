@@ -7,12 +7,12 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from src.train import ROOT, LABELS, preprocess_text
+from src.train import ROOT, LABELS, preprocess_text, locate_csv
 
 
 def crear_analisis():
     pred = pd.read_csv(ROOT / "outputs" / "predicciones_test.csv")
-    test = pd.read_csv(ROOT / "data" / "ag_news" / "ag_news_test.csv")
+    test = pd.read_csv(locate_csv("data/ag_news/ag_news_test.csv"))
     esperado = {"fila_test", "label_real", "label_predicha", "confianza_modelo"}
     if not esperado.issubset(pred.columns):
         raise ValueError("Faltan columnas de predicciones_test.csv")

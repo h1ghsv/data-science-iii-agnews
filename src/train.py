@@ -79,9 +79,20 @@ def preprocess_text(text: str) -> str:
     return re.sub(r'\s+', ' ', text).strip()
 
 
+def locate_csv(relative_path: str) -> Path:
+    """Busca los datos en el diseño de carpetas actual o en data/ag_news/."""
+    requested = ROOT / relative_path
+    if requested.exists():
+        return requested
+    alternative = ROOT / 'data' / requested.name
+    if alternative.exists() and requested.parent == ROOT / 'data' / 'ag_news':
+        return alternative
+    raise FileNotFoundError(f'No se encontró el dataset: {requested}')
+
+
 def load_official_data(config: Config) -> tuple[pd.DataFrame, pd.DataFrame]:
-    train = pd.read_csv(ROOT / config.train_file)
-    test = pd.read_csv(ROOT / config.test_file)
+    train = pd.read_csv(locate_csv(config.train_file))
+    test = pd.read_csv(locate_csv(config.test_file))
     for name, frame in [('train', train), ('test', test)]:
         if set(frame.columns) != {'text', 'label'}:
             raise ValueError(f'{name}: se esperaban columnas text y label: {list(frame.columns)}')
