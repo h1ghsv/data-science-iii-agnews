@@ -15,6 +15,7 @@ Pipeline reproducible de entrenamiento, validación y evaluación de un clasific
 ├── models/                 # Modelos generados localmente
 ├── docs/                   # Metodología y entrega
 ├── checkpoint_2_eda/       # Preprocesamiento, informe PDF y análisis exploratorio
+├── checkpoint_3_tfidf/     # Clasificadores supervisados clásicos y evaluación
 ├── requirements.txt
 └── README.md
 ```
@@ -137,3 +138,38 @@ El análisis exploratorio se realizó exclusivamente sobre las 8.000 noticias de
 El preprocesamiento compartido de entrenamiento e inferencia está en `src/text_utils.py`, de modo que `joblib` pueda recargar el vectorizador TF-IDF desde otro proceso. Los modelos generados no se versionan en GitHub: ejecutar `python -m src.train` antes de usar `python -m src.predict`.
 
 La semilla 42, los parámetros y las versiones utilizadas figuran en `outputs/resumen_experimento.json`. Pueden producirse pequeñas variaciones numéricas entre distintas versiones de bibliotecas o hardware. Para generar nuevamente el informe del segundo checkpoint, instalar también las dependencias en `checkpoint_2_eda/requirements_eda.txt` y el modelo inglés de SpaCy `en_core_web_sm`.
+
+
+## Checkpoint 3 | Clasificación supervisada con TF-IDF
+
+Se incorporó un benchmark de clasificación clásica sobre **el mismo corpus AG News**, con Naive Bayes Multinomial, Regresión Logística y SVM lineal. El experimento utiliza normalización textual compatible con el EDA, tokenización por palabras con SpaCy y ponderación TF-IDF, conservando las negaciones relevantes. Se evaluaron configuraciones con 10.000 y 15.000 características máximas y con unigramas y bigramas.
+
+La selección se efectuó sobre 6.400 documentos de desarrollo y 1.600 de validación mediante **F1-macro**. Se verificó que no existan textos duplicados tras normalización entre ambas particiones. Para cada candidato, TF-IDF se ajustó únicamente sobre entrenamiento; validación y test se transformaron sin volver a estimar el vocabulario. Una vez elegido el modelo, se reajustó con los 8.000 documentos de entrenamiento y se evaluó sobre las 2.000 noticias del test oficial.
+
+| Resultado del modelo seleccionado | Valor |
+|---|---:|
+| Modelo | Multinomial Naive Bayes |
+| Representación | TF-IDF, unigramas y bigramas, `max_features=15000` |
+| Accuracy en validación | 90,12 % |
+| F1-macro en validación | 90,07 % |
+| Accuracy en test | **89,10 %** |
+| F1-macro en test | **89,11 %** |
+
+Los principales errores se producen entre `Business` y `Sci_Tech`, categorías con vocabulario parcialmente compartido. Se documentaron la matriz de confusión, los resultados por categoría y las diferencias entre configuraciones.
+
+![Comparación de clasificadores](checkpoint_3_tfidf/outputs/comparacion_modelos.png)
+
+![Matriz de confusión TF-IDF](checkpoint_3_tfidf/outputs/matriz_confusion.png)
+
+### Ejecutar el checkpoint 3
+
+```bash
+python -m pip install -r checkpoint_3_tfidf/requirements_tfidf.txt
+python -m checkpoint_3_tfidf.entrenar
+python -m pytest -q checkpoint_3_tfidf/tests
+python -m checkpoint_3_tfidf.verificar
+```
+
+La configuración principal utiliza el tokenizador inglés de SpaCy sin lematización, para que el baseline sea reproducible sin descargar modelos lingüísticos. La variante con `en_core_web_sm` está implementada y puede ejecutarse mediante `--lematizar`; **sus métricas deben recalcularse**, porque corresponde a otro experimento.
+
+**Código, parámetros y análisis:** [Checkpoint 3](checkpoint_3_tfidf/) · **Notebook:** [Clasificador TF-IDF](notebooks/Clasificador_TFIDF_AGNews.ipynb).
