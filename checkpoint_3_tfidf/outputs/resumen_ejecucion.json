@@ -1,0 +1,90 @@
+{
+  "dataset": "AG News (muestra oficial de la cátedra)",
+  "train_catedra": 8000,
+  "test_catedra": 2000,
+  "train_desarrollo": 6400,
+  "validacion": 1600,
+  "semilla": 42,
+  "lematizacion_spacy": false,
+  "spacy_modelo": "spacy.blank('en')",
+  "modelo_seleccionado": {
+    "nombre": "Naive Bayes | unigramas y bigramas",
+    "algoritmo": "NB",
+    "max_features": 15000,
+    "ngram_range": [
+      1,
+      2
+    ]
+  },
+  "f1_macro_validacion": 0.9007236143639915,
+  "vocabulario_final": 15000,
+  "accuracy_test": 0.891,
+  "f1_macro_test": 0.8910715926057007,
+  "metricas_por_clase": {
+    "Business": {
+      "precision": 0.8259187620889749,
+      "recall": 0.854,
+      "f1-score": 0.839724680432645,
+      "support": 500.0
+    },
+    "Sci_Tech": {
+      "precision": 0.8780487804878049,
+      "recall": 0.864,
+      "f1-score": 0.8709677419354839,
+      "support": 500.0
+    },
+    "Sports": {
+      "precision": 0.9526627218934911,
+      "recall": 0.966,
+      "f1-score": 0.9592850049652433,
+      "support": 500.0
+    },
+    "World": {
+      "precision": 0.9090909090909091,
+      "recall": 0.88,
+      "f1-score": 0.8943089430894309,
+      "support": 500.0
+    }
+  },
+  "principales_confusiones": [
+    {
+      "real": "Sci_Tech",
+      "prediccion": "Business",
+      "cantidad": 48
+    },
+    {
+      "real": "Business",
+      "prediccion": "Sci_Tech",
+      "cantidad": 43
+    },
+    {
+      "real": "World",
+      "prediccion": "Business",
+      "cantidad": 36
+    },
+    {
+      "real": "Business",
+      "prediccion": "World",
+      "cantidad": 24
+    },
+    {
+      "real": "Sci_Tech",
+      "prediccion": "World",
+      "cantidad": 15
+    },
+    {
+      "real": "World",
+      "prediccion": "Sports",
+      "cantidad": 13
+    }
+  ],
+  "sha256_train": "923ca3cb5bf0537e1d15b01840c762092cddfae7e1a48af0faa5b10b0812fe71",
+  "sha256_test": "f71b40d115917ee508a84377aa35c08986d4b435e633b922214476ee1e9fd2ea",
+  "versiones": {
+    "python": "3.13.5",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.8.0",
+    "spacy": "3.8.11"
+  }
+}

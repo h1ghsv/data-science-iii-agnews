@@ -1,0 +1,13 @@
+﻿real,prediccion,cantidad
+Sci_Tech,Business,48
+Business,Sci_Tech,43
+World,Business,36
+Business,World,24
+Sci_Tech,World,15
+World,Sports,13
+World,Sci_Tech,11
+Business,Sports,6
+Sports,Business,6
+Sports,Sci_Tech,6
+Sci_Tech,Sports,5
+Sports,World,5
