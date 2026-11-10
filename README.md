@@ -179,10 +179,19 @@ La configuración principal utiliza el tokenizador inglés de SpaCy sin lematiza
 
 Se implementó un clasificador de las cuatro categorías de AG News mediante **DistilBERT** y adaptadores **LoRA**, utilizando los mismos archivos de entrenamiento y prueba de los módulos anteriores. El modelo se eligió por su compatibilidad con el idioma inglés y su tamaño relativamente reducido para trabajar con GPU en Google Colab.
 
-La configuración utiliza `r=8`, `lora_alpha=16` y los módulos de atención `q_lin` y `v_lin`. La cabeza clasificadora se entrena para las cuatro categorías. Se estudian las pérdidas de entrenamiento y validación, los parámetros entrenables, el tiempo de entrenamiento y las métricas por clase.
+La configuración utiliza `r=8`, `lora_alpha=16` y adaptadores sobre los módulos de atención `q_lin` y `v_lin`. La cabeza clasificadora también se entrena para reconocer las cuatro categorías. Se registraron las pérdidas de entrenamiento y validación, los parámetros entrenables y el tiempo de ejecución con GPU.
 
-La comparación utiliza como referencia el modelo TF-IDF + Naive Bayes del Checkpoint 3, con un **F1-macro de 89,11 %** en test. El rendimiento de DistilBERT + LoRA se calcula tras ejecutar el notebook con GPU.
+El modelo se ajustó en una Tesla T4 y se comparó con el clasificador TF-IDF + Naive Bayes del Checkpoint 3, utilizando las mismas 2.000 noticias del conjunto oficial de prueba.
+
+| Métrica en test | TF-IDF + Naive Bayes | DistilBERT + LoRA |
+|---|---:|---:|
+| Precision macro | 89,14 % | 90,67 % |
+| Recall macro | 89,10 % | 90,55 % |
+| F1-macro | 89,11 % | **90,57 %** |
+| Accuracy | 89,10 % | 90,55 % |
+
+Con LoRA se entrenaron **741.124 parámetros (1,09 % del total)**. El tiempo acumulado de entrenamiento fue de aproximadamente **87,5 segundos** en Tesla T4. El F1-macro aumentó **1,46 puntos porcentuales** respecto del baseline, aunque esa mejora debe considerarse junto al costo computacional y al alcance de la muestra utilizada.
 
 **Código y metodología:** [Checkpoint 4](checkpoint_4_lora/) · **Notebook:** [Fine-tuning LoRA en Colab](notebooks/Fine_Tuning_LoRA_AGNews_Colab.ipynb).
 
-El informe técnico se genera en `checkpoint_4_lora/reportes/Arevalo_JuanPablo_Checkpoint_NLP3.pdf` a partir de las métricas registradas durante el entrenamiento.
+**Informe técnico:** [Clasificación de noticias con LoRA](checkpoint_4_lora/reportes/Arevalo_JuanPablo_Checkpoint_NLP3.pdf). Los resultados detallados y las curvas de pérdida se encuentran en `checkpoint_4_lora/outputs/`.
