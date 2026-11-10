@@ -1,0 +1,11 @@
+# PyTorch con soporte CUDA viene preinstalado en Google Colab. No reinstalarlo con pip.
+transformers==4.57.3
+peft==0.17.1
+datasets==4.4.1
+accelerate==1.12.0
+pandas>=2.0,<3
+numpy>=1.26,<3
+scikit-learn>=1.4,<2
+matplotlib>=3.7,<4
+reportlab>=4.0,<5
+pytest>=8,<10

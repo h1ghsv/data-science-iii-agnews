@@ -16,6 +16,7 @@ Pipeline reproducible de entrenamiento, validación y evaluación de un clasific
 ├── docs/                   # Metodología y entrega
 ├── checkpoint_2_eda/       # Preprocesamiento, informe PDF y análisis exploratorio
 ├── checkpoint_3_tfidf/     # Clasificadores supervisados clásicos y evaluación
+├── checkpoint_4_lora/      # Fine-tuning de DistilBERT con LoRA y reporte técnico
 ├── requirements.txt
 └── README.md
 ```
@@ -173,3 +174,15 @@ python -m checkpoint_3_tfidf.verificar
 La configuración principal utiliza el tokenizador inglés de SpaCy sin lematización, para que el baseline sea reproducible sin descargar modelos lingüísticos. La variante con `en_core_web_sm` está implementada y puede ejecutarse mediante `--lematizar`; **sus métricas deben recalcularse**, porque corresponde a otro experimento.
 
 **Código, parámetros y análisis:** [Checkpoint 3](checkpoint_3_tfidf/) · **Notebook:** [Clasificador TF-IDF](notebooks/Clasificador_TFIDF_AGNews.ipynb).
+
+## Checkpoint 4 | Fine-tuning con LoRA
+
+Se implementó un clasificador de las cuatro categorías de AG News mediante **DistilBERT** y adaptadores **LoRA**, utilizando los mismos archivos de entrenamiento y prueba de los módulos anteriores. El modelo se eligió por su compatibilidad con el idioma inglés y su tamaño relativamente reducido para trabajar con GPU en Google Colab.
+
+La configuración utiliza `r=8`, `lora_alpha=16` y los módulos de atención `q_lin` y `v_lin`. La cabeza clasificadora se entrena para las cuatro categorías. Se estudian las pérdidas de entrenamiento y validación, los parámetros entrenables, el tiempo de entrenamiento y las métricas por clase.
+
+La comparación utiliza como referencia el modelo TF-IDF + Naive Bayes del Checkpoint 3, con un **F1-macro de 89,11 %** en test. El rendimiento de DistilBERT + LoRA se calcula tras ejecutar el notebook con GPU.
+
+**Código y metodología:** [Checkpoint 4](checkpoint_4_lora/) · **Notebook:** [Fine-tuning LoRA en Colab](notebooks/Fine_Tuning_LoRA_AGNews_Colab.ipynb).
+
+El informe técnico se genera en `checkpoint_4_lora/reportes/Arevalo_JuanPablo_Checkpoint_NLP3.pdf` a partir de las métricas registradas durante el entrenamiento.
