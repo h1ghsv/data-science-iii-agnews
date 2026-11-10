@@ -1,0 +1,105 @@
+{
+  "ejecucion_real": true,
+  "corpus": "AG News, muestra de Coderhouse",
+  "modelo": "distilbert-base-uncased",
+  "num_labels": 4,
+  "etiquetas": [
+    "Business",
+    "Sci_Tech",
+    "Sports",
+    "World"
+  ],
+  "dataset": {
+    "train_total": 8000,
+    "desarrollo": 6400,
+    "validacion": 1600,
+    "test": 2000,
+    "train_sha256": "923ca3cb5bf0537e1d15b01840c762092cddfae7e1a48af0faa5b10b0812fe71",
+    "test_sha256": "f71b40d115917ee508a84377aa35c08986d4b435e633b922214476ee1e9fd2ea"
+  },
+  "procesamiento": {
+    "limpieza": "HTML/URLs/espacios, sin eliminar negaciones ni lematizar",
+    "tokenizador": "distilbert-base-uncased",
+    "max_length": 128,
+    "padding": "dinámico por batch",
+    "truncation": true
+  },
+  "lora": {
+    "r": 8,
+    "alpha": 16,
+    "lora_dropout": 0.05,
+    "target_modules": [
+      "q_lin",
+      "v_lin"
+    ],
+    "modules_to_save": [
+      "pre_classifier",
+      "classifier"
+    ],
+    "task_type": "SEQ_CLS",
+    "parametros": {
+      "modelo_original": 66956548,
+      "modelo_con_adaptadores": 67697672,
+      "entrenables": 741124,
+      "solo_lora": 147456,
+      "cabeza_y_otros_entrenables": 593668,
+      "fraccion_entrenable": 0.010947555183286066
+    }
+  },
+  "hiperparametros": {
+    "epocas_maximas": 3,
+    "epoca_mejor": 3,
+    "batch_size": 16,
+    "acumulacion_gradientes": 2,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.01,
+    "semilla": 42
+  },
+  "entrenamiento": {
+    "perdida_train_en_mejor_epoca": 0.286,
+    "perdida_train_promedio_seleccion": 0.4209447224934896,
+    "perdida_validacion_mejor_epoca": 0.2832546532154083,
+    "f1_macro_validacion_mejor": 0.905350486124964,
+    "tiempo_seleccion_seg": 41.981078415999946,
+    "reajuste_completo": true,
+    "tiempo_reajuste_seg": 45.56154319899997,
+    "perdida_entrenamiento_final_8k": 0.3967736206054687,
+    "tiempo_total_entrenamiento_seg": 87.54262161499992,
+    "tiempo_test_seg": 1.681285780000053,
+    "metodo_evaluado": "8000_train_refit_tras_validacion"
+  },
+  "test": {
+    "accuracy": 0.9055,
+    "precision_macro": 0.9067400667918819,
+    "recall_macro": 0.9055,
+    "f1_macro": 0.9057009419308962
+  },
+  "baseline_checkpoint3": {
+    "modelo": "TF-IDF + Multinomial Naive Bayes (Checkpoint 3)",
+    "precision_macro": 0.891430293390295,
+    "recall_macro": 0.891,
+    "f1_macro": 0.8910715926057007,
+    "accuracy": 0.891,
+    "entrenamiento_documentos": 8000,
+    "archivo": "checkpoint_3_tfidf/outputs/reporte_clasificacion.csv"
+  },
+  "versiones": {
+    "python": "3.13.16",
+    "torch": "2.14.1+cu130",
+    "transformers": "4.57.3",
+    "peft": "0.17.1",
+    "datasets": "4.4.1",
+    "accelerate": "1.12.0"
+  },
+  "hardware": {
+    "gpu": "Tesla T4",
+    "vram_gb": 14.56,
+    "pico_memoria_asignada_gb": 0.673,
+    "pico_memoria_reservada_gb": 0.818
+  },
+  "limitaciones": [
+    "Si no se utiliza --refit-full, LoRA se entrena con 6.400 noticias frente a 8.000 del baseline",
+    "No se informa tiempo comparable del baseline: falta medición en el mismo hardware",
+    "El conjunto test ya fue utilizado en checkpoints anteriores; no es evaluación externa totalmente ciega"
+  ]
+}
